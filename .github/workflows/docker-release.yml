@@ -21,6 +21,9 @@ jobs:
     name: Build and publish ${{ matrix.platform.name }} docker image
     if: github.ref == 'refs/heads/main'
     runs-on: "${{ matrix.platform.runner }}"
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v4
 
@@ -64,6 +67,9 @@ jobs:
   publish-merged-manifest:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
     needs:
       - build
     steps:
