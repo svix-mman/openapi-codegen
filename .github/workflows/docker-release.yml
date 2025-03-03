@@ -7,7 +7,7 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
-  REGISTRY_IMAGE: ghcr.io/svix/openapi-codegen
+  REGISTRY_IMAGE: ghcr.io/svix-mman/openapi-codegen
 
 jobs:
   build:
