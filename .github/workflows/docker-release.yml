@@ -43,7 +43,7 @@ jobs:
           tags: ${{ env.REGISTRY_IMAGE }}
           file: Dockerfile
           cache-from: type=gha
-          cache-to: type=gha
+          cache-to: type=gha,mode=max
           platforms: linux/${{ matrix.platform.name }}
           outputs: type=image,push-by-digest=true,name-canonical=true,push=true
 
