@@ -38,7 +38,7 @@ RUN cargo build --release
 
 # build csharpier
 FROM alpine:3.21 AS csharpier-builder
-ARG TARGETARCH="amd64"
+ARG TARGETARCH
 WORKDIR /app
 # csharpier defines .net9 in a file called global.json, so we need it on the system even if we don't use it
 RUN apk add git dotnet9-sdk dotnet8-sdk
@@ -63,7 +63,7 @@ RUN rm -rf /usr/local/go/*.md && \
 
 
 FROM alpine:3.21 AS biome-downloader
-ARG TARGETPLATFORM="linux/amd64"
+ARG TARGETPLATFORM
 ENV TARGETPLATFORM=$TARGETPLATFORM
 
 RUN apk add --no-cache curl bash
@@ -88,7 +88,7 @@ RUN bash /download-biome.sh
 
 
 # main image
-FROM alpine:3.21 AS asd
+FROM alpine:3.21
 ENV PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/go/bin:/root/.cargo/bin"
 RUN apk add --no-cache openjdk17-jre-headless curl gcompat libgcc ruff libstdc++
 
