@@ -38,6 +38,7 @@ RUN cargo build --release
 
 # build csharpier
 FROM alpine:3.21 AS csharpier-builder
+# targetarch is provided by buildkit
 ARG TARGETARCH
 WORKDIR /app
 # csharpier defines .net9 in a file called global.json, so we need it on the system even if we don't use it
@@ -63,6 +64,7 @@ RUN rm -rf /usr/local/go/*.md && \
 
 
 FROM alpine:3.21 AS biome-downloader
+# targetplatform is provided by buildkit
 ARG TARGETPLATFORM
 ENV TARGETPLATFORM=$TARGETPLATFORM
 
