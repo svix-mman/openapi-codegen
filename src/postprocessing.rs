@@ -145,7 +145,7 @@ fn execute_command(command: &'static str, args: &[&str], paths: &Vec<Utf8PathBuf
     match result {
         Ok(exit_status) if exit_status.success() => {}
         Ok(exit_status) => {
-            tracing::warn!(exit_status = exit_status.code(), "`{command}` failed");
+            tracing::error!(exit_status = exit_status.code(), "`{command}` failed");
         }
         Err(e) if e.kind() == io::ErrorKind::NotFound => {
             // only print one error per command that's not found
