@@ -43,6 +43,18 @@ pub(crate) fn env(tpl_dir: &Utf8Path) -> Result<minijinja::Environment<'static>,
             Ok(contains_required_param(query_params)? || contains_required_param(header_params)?)
         },
     );
+    env.add_filter(
+        "has_non_ref_struct_enum_variants",
+        |variants: Vec<Value>| -> Result<bool, minijinja::Error> {
+            for v in &variants {
+                let ty = v.get_attr("type")?;
+                if ty.as_str().unwrap_or_default() != "ref" {
+                    return Ok(true);
+                }
+            }
+            Ok(false)
+        },
+    );
 
     // --- Comment generation ---
     env.add_filter(
